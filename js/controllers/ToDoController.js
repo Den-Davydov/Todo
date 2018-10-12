@@ -97,7 +97,6 @@ app.controller('main', function($scope) {
     if(confirm(msg)){
       const i = $scope.todos.indexOf(parent);
       const j = $scope.todos[i].works.indexOf(item);
-      console.log(i,"  ",j);
       $scope.todos[i].works.splice(j, 1);
     }};
 
@@ -114,44 +113,22 @@ app.controller('main', function($scope) {
     options[name] = function (evt) {
 
       if (name='onEnd' && evt.oldIndex!==undefined && evt.newIndex!==undefined){
-        console.log({
-          'event': name,
-          'from':+evt.from.id.slice(1),
-          'to':+evt.item.parentElement.id.slice(1),
-          'old': evt.oldIndex,
-          'new': evt.newIndex
-        });
-
         var iFrom=+evt.from.id.slice(1);
         var iTo=+evt.item.parentElement.id.slice(1);
         var jFrom=evt.oldIndex;
         var jTo=evt.newIndex;
-
-        console.log(jFrom,"  iiiii= ", iFrom,"!!!=== ++++++",jTo,"  iiiii= ", iTo);
-        console.log($scope.todos);
         var r= $scope.todos[iFrom].works.splice(jFrom,1);
-        $scope.$apply();
         $scope.todos[iTo].works.splice(jTo,0, r[0]);
-        $scope.$apply();
         var sort="i"+iTo;
         Sortable.create(document.getElementById(sort), options);
         $scope.$apply();
-        console.log(sort);
-
-
       }
-
     };
   });
 
   $scope.init = function (parent) {
-
-    const i1 = $scope.todos.indexOf(parent);
-
-    console.log(i1);
     for (var t = 0; t < $scope.todos.length; t++) {
      var i="i"+t;
-
       Sortable.create(document.getElementById(i), options);
   }};
 
