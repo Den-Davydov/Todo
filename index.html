@@ -1,0 +1,82 @@
+<!doctype html>
+<html ng-app="todoApp">
+<head>
+    <title>To-Do App</title>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="js/controllers/ToDoController.js"></script>
+    <!-- Sortable.js -->
+    <script src="//rubaxa.github.io/Sortable/Sortable.js"></script>
+
+
+
+</head>
+<body>
+
+
+<div id="container" ng-controller="main">
+    <h2> My List </h2>
+
+    <div class="main js-main">
+        <div class="todo-count">
+            <span># Items: <strong>{{todos.length}}</strong></span>
+        </div>
+        <div class="todo-list" >
+            <div class="inner">
+                <div class="item" ng-repeat="todo in todos" >
+                    <div class="textTask"  >
+                        <span>{{todo.text}}</span>
+                    </div>
+
+                    <div class="options">
+                        <span ng-click="editTask(todo)" class="btn-edit">
+                            <i class="fa fa-edit"></i> Edit
+                        </span>
+                        <span ng-click="removeTask(todo)" class="btn-remove">
+                            <i class="fa fa-remove"></i> Remove
+                        </span>
+                        <span ng-click="addWork(todo)" class="btn-add">
+                            <i class="fa fa-plus"></i> Add Work
+                        </span>
+                    </div>
+
+                    <div  id="i{{$index}}">
+                        <div ng-repeat="work in todo.works"  >
+                            <div class="layer-draggable" ng-mousedown="init(todo)">
+                                <div class="inner done-{{work.done}}">
+                                    <div class="status">
+                                        <input type="checkbox" ng-model="work.done" />
+                                    </div>
+                                    <div class="text">
+                                        <span>{{work.name}} </span>
+                                    </div>
+                                    <div class="options">
+                                        <span ng-click="editWork(work)" class="btn-edit">
+                                            <i class="fa fa-edit"></i> Edit
+                                        </span>
+                                        <span ng-click="removeWork(work,todo)" class="btn-remove">
+                                            <i class="fa fa-remove"></i> Remove
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="todo-form">
+            <form ng-submit="addTask()">
+                <div class="input-group">
+                    <input type="text" ng-model="todoInput" size="25" placeholder="Add new task..." />
+                    <button>
+                        <i class="fa fa-plus"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
